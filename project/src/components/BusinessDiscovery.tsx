@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { MapPin, Star, Phone, Globe, Clock, Award, Filter } from 'lucide-react';
-import { useApp } from '../contexts/AppContext';
+import { MapPin, Star, Phone, Globe, Clock, Award, Filter, ShieldCheck } from 'lucide-react'; // Added ShieldCheck for badges
+import { useApp, Badge } from '../contexts/AppContext'; // Added Badge
 
 const BusinessDiscovery: React.FC = () => {
   const { discoveryUsers, connectWithUser, filters, setFilters } = useApp();
@@ -132,6 +132,27 @@ const BusinessDiscovery: React.FC = () => {
                 {/* Content */}
                 <div className="p-4">
                   <p className="text-gray-700 text-sm mb-4 line-clamp-2">{user.bio}</p>
+
+                  {/* Community Activity Section */}
+                  {user.showCommunityActivityOnMatchProfile && (user.karmaPoints > 0 || user.badges.length > 0) && (
+                    <div className="mb-3 pb-3 border-b border-gray-100">
+                      <h4 className="text-xs font-semibold text-purple-700 mb-1">Community Activity</h4>
+                      <div className="flex items-center space-x-3">
+                        {user.karmaPoints > 0 && (
+                          <div className="flex items-center space-x-1 text-sm text-yellow-600">
+                            <Star className="w-4 h-4 fill-current" />
+                            <span>{user.karmaPoints} Karma</span>
+                          </div>
+                        )}
+                        {user.badges.length > 0 && (
+                          <div className="flex items-center space-x-1 text-sm text-indigo-600">
+                            <ShieldCheck className="w-4 h-4 fill-current" />
+                            <span>{user.badges.length} Badge{user.badges.length > 1 ? 's' : ''}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Services/Specialties */}
                   {(user.specialties || user.services) && (

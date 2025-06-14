@@ -1,7 +1,8 @@
 import React from 'react';
-import { Heart, MessageCircle, User, Zap, Building2 } from 'lucide-react';
+import { Heart, MessageCircle, User, Zap, Building2, Users } from 'lucide-react'; // Added Users icon
 import { useApp } from '../contexts/AppContext';
 import DiscoveryScreen from './DiscoveryScreen';
+import CommunityScreen from './CommunityScreen'; // Import CommunityScreen
 import BusinessDiscovery from './BusinessDiscovery';
 import MatchesScreen from './MatchesScreen';
 import ChatScreen from './ChatScreen';
@@ -24,6 +25,8 @@ const MainApp: React.FC = () => {
         return <ChatScreen />;
       case 'profile':
         return <ProfileScreen />;
+      case 'community': // Add case for community screen
+        return <CommunityScreen />;
       default:
         return currentUser?.userType === 'pet-parent' ? <DiscoveryScreen /> : <BusinessDiscovery />;
     }
@@ -73,6 +76,24 @@ const MainApp: React.FC = () => {
               )}
             </div>
             <span className="text-xs mt-1 font-medium">Services</span>
+          </button>
+
+          {/* Communities Tab */}
+          <button
+            onClick={() => setCurrentScreen('community')}
+            className={`flex flex-col items-center p-3 rounded-lg transition-all transform hover:scale-105 ${
+              currentScreen === 'community'
+                ? 'text-teal-600' // Teal color for active state
+                : 'text-gray-400 hover:text-gray-600'
+            }`}
+          >
+            <div className="relative">
+              <Users className={`w-6 h-6 ${currentScreen === 'community' ? 'fill-current' : ''}`} />
+              {currentScreen === 'community' && (
+                <div className="absolute -inset-1 bg-teal-200 rounded-full -z-10 animate-pulse"></div>
+              )}
+            </div>
+            <span className="text-xs mt-1 font-medium">Community</span>
           </button>
 
           {/* Matches/Connections */}

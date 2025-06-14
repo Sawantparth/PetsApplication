@@ -25,6 +25,7 @@ const AppContent: React.FC = () => {
       case 'matches':
       case 'chat':
       case 'profile':
+      case 'community': // Add community screen here
         return <MainApp />;
       default:
         return <WelcomeScreen />;
